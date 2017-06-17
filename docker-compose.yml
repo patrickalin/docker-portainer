@@ -1,8 +1,8 @@
-version: '3'
+version: '3.2'
 
 services:
   portainer:
-    image: portainer/portainer:1.12.4
+    image: portainer/portainer:1.13.2
     container_name: portainer
     ports:
      - "7095:9000"
