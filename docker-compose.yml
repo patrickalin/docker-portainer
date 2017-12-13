@@ -1,24 +1,27 @@
-version: '3.2'
+version: '3.3'
 
 services:
   portainer:
-    image: portainer/portainer:1.13.6
-    container_name: portainer
-    ports:
-     - "7095:9000"
+    image: portainer/portainer:1.15.5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.port=9000
+        - traefik.frontend.rule=Host:portainer.services.alin.be
+        - traefik.frontend.entryPoints=http,https
+        - traefik.backend.loadbalancer.method=wrr
     privileged: true
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
      - ./data:/data
-    labels:
-     - traefik.frontend.rule=Host:portainer.services.alin.be
-     - traefik.backend=portainer
-     - traefik.port=9000
-     - traefik.frontend.entryPoints=https,http
-    networks:
-        - web
+     - /etc/localtime:/etc/localtime
 
 networks:
-  web:
+  default:
     external:
-      name: traefik_webgateway
+      name: traefik-net
