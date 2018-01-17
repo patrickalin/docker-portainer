@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SERVICE="portainer"
+IMAGE="$SERVICE-image"
 
 OPTION=$(whiptail --title $SERVICE --menu "Choose your option" 15 60 4 \
 "1" "Start service $SERVICE"  \
@@ -25,3 +26,4 @@ case "$OPTION" in
 3)  docker stack remove  $SERVICE
     ;;
 esac
+
