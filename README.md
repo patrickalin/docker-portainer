@@ -1,6 +1,9 @@
 # docker-portainer
 Docker portainer
 
+- git clone https://github.com/patrickalin/docker-portainer.git
+- ./menu.sh (build, deploy)
+
 To add another node
 
     vi /etc/systemd/system/multi-user.target.wants/docker.service
