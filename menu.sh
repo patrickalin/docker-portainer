@@ -1,14 +1,13 @@
 #!/bin/bash
 
-SERVICE="portainer"
+SERVICE="$(basename `pwd` | cut -d'-' -f 2)"
 IMAGE="$SERVICE-image"
 
 OPTION=$(whiptail --title $SERVICE --menu "Choose your option" 15 60 4 \
-"0" "Build $SERVICE" \
-"1" "Start service $SERVICE"  \
-"2" "Restart service $SERVICE" \
+"1" "Build $SERVICE" \
+"2" "(Re)Start service $SERVICE" \
 "3" "Stop service $SERVICE" 3>&1 1>&2 2>&3)
-
+ 
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
     echo "Your chosen option:" $OPTION
@@ -18,18 +17,13 @@ fi
 
 case "$OPTION" in
 
-0)  cd $IMAGE
+1)  cd $IMAGE
     docker build -t $IMAGE .
-    docker tag $IMAGE registry-srv.services.alin.be/$IMAGE
     ;;
-1)  docker-compose up -d
-    ;;
-2)  docker-compose down
+2)  docker stack remove  $SERVICE
     sleep 3
-    docker-compose up -d
+    docker stack deploy --compose-file docker-compose.yml $SERVICE
     ;;
-3)  docker-compose down
-    docker-compose rm
+3)  docker stack remove  $SERVICE
     ;;
 esac
-
