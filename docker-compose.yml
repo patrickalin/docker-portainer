@@ -20,7 +20,7 @@ services:
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
      - /etc/localtime:/etc/localtime
-#     - /portainer/data:/data
+     - ./portainer/data:/data
 
 networks:
   default:
