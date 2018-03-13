@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   portainer:
-    image: portainer-image
+    image: registry.services.alin.be/portainer-image:v1
     deploy:
       replicas: 1
       resources:

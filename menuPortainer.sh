@@ -1,4 +1,7 @@
 #!/bin/bash
+DIRECTORY=$(cd `dirname $0` && pwd)
+cd $DIRECTORY
+set -e
 
 SERVICE="$(basename `pwd` | cut -d'-' -f 2)"
 IMAGE="$SERVICE-image"
@@ -18,8 +21,9 @@ fi
 case "$OPTION" in
 
 1)  cd $IMAGE
-    docker build -t registry.services.alin.be/$IMAGE .
-    docker push registry.services.alin.be/$IMAGE
+    docker build -t registry.services.alin.be/$IMAGE:v1 .
+    docker push registry.services.alin.be/$IMAGE:v1
+    docker images | grep $IMAGE
     ;;
 2)  docker stack remove  $SERVICE
     sleep 3
