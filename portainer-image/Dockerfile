@@ -1,4 +1,4 @@
-FROM registry.services.alin.be/portainer/portainer:v1
+# Don't edit this file, user DockerfileTemplate and buildImage.sh
+###############################################
+FROM registry.services.alin.be/portainer/portainer:1.16.5
 COPY localtime /etc/localtime
-#RUN apk add --update bash curl
-#HEALTHCHECK --interval=10s --timeout=10s --retries=3 CMD curl -f http://localhost:9000/ || exit 1

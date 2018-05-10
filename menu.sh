@@ -1,16 +1,28 @@
 #!/bin/bash
+# v0.3
 DIRECTORY=$(cd `dirname $0` && pwd)
 cd $DIRECTORY
+
 set -e
+
 
 SERVICE="$(basename `pwd` | cut -d'-' -f 2)"
 IMAGE="$SERVICE-image"
 
+source ./$IMAGE/env
+FROM="($IMAGE_SRC : $TAG_SRC)"
+
+if [ -d "$IMAGE" ]; then
 OPTION=$(whiptail --title $SERVICE --menu "Choose your option" 15 60 4 \
-"1" "Build $SERVICE" \
+"1" "Build from $FROM" \
 "2" "(Re)Start service $SERVICE" \
 "3" "Stop service $SERVICE" 3>&1 1>&2 2>&3)
- 
+else
+OPTION=$(whiptail --title $SERVICE --menu "Choose your option" 15 60 4 \
+"2" "(Re)Start service $SERVICE" \
+"3" "Stop service $SERVICE" 3>&1 1>&2 2>&3)
+fi
+
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
     echo "Your chosen option:" $OPTION
@@ -20,14 +32,17 @@ fi
 
 case "$OPTION" in
 
-1)  cd $IMAGE
-    docker build -t registry.services.alin.be/$IMAGE:v1 .
-    docker push registry.services.alin.be/$IMAGE:v1
-    docker images | grep $IMAGE
+1)  $IMAGE/buildImage.sh
+    echo "######################"
+    source $IMAGE/env
     ;;
 2)  docker stack remove  $SERVICE
     sleep 3
     docker stack deploy --compose-file docker-compose.yml $SERVICE
+    if [ -d "$IMAGE" ]; then
+    echo "######################"
+    source $IMAGE/env
+    fi
     ;;
 3)  docker stack remove  $SERVICE
     ;;

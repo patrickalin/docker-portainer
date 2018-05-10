@@ -1,0 +1,14 @@
+RED='\e[1;31m'
+BLUE='\e[1;34m'
+GREEN='\e[1;32m'
+NC='\e[0m'
+
+IMAGE_SRC=portainer/portainer
+TAG_SRC=1.16.5
+IMAGE_DEST=portainer
+TAG_DEST=v1
+REGISTRY=registry.services.alin.be
+POSTFIX="alin"
+
+echo -e "From : $GREEN $IMAGE_SRC:$TAG_SRC $NC"
+echo -e "To : $GREEN $REGISTRY/$IMAGE_DEST-$POSTFIX:$TAG_DEST $NC"
