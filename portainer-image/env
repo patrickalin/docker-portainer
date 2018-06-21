@@ -4,7 +4,7 @@ GREEN='\e[1;32m'
 NC='\e[0m'
 
 IMAGE_SRC=portainer/portainer
-TAG_SRC=1.16.5
+TAG_SRC=1.17.1
 IMAGE_DEST=portainer
 TAG_DEST=v1
 REGISTRY=registry.services.alin.be
