@@ -1,0 +1,16 @@
+RED='\033[1;31m'
+BLUE='\033[1;34m'
+GREEN='\033[1;32m'
+NC='\033[0m'
+
+REGISTRY_FROM=registry.services.alin.be
+IMAGE_FROM=portainer/portainer
+TAG_FROM=1.18.1
+
+REGISTRY_TO=registry.services.alin.be
+IMAGE_TO=portainer
+TAG_TO=1.18.1
+POSTFIX_TO=alin
+
+echo -e "From : $GREEN		$REGISTRY_FROM${REGISTRY_FROM:+/}$IMAGE_FROM:$TAG_FROM 	$NC"
+echo -e "To : $GREEN 		$REGISTRY_TO${REGISTRY_TO:+/}$IMAGE_TO:$TAG_TO 		$NC"

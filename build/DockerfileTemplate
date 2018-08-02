@@ -1,0 +1,2 @@
+FROM $REGISTRY/$IMAGE_FROM:$TAG_FROM
+COPY files/localtime /etc/localtime
